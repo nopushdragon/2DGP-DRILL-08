@@ -21,7 +21,6 @@ def space_down(e):
 def time_out(e):
     return e[0] == 'TIMEOUT'
 
-
 class AutoRun:
 
     def __init__(self, boy):
