@@ -27,11 +27,11 @@ class AutoRun:
         self.boy = boy
 
     def enter(self,e):
-        if right_down(e) or left_up(e):
+        if self.boy.face_dir == 1:
             self.boy.dir = self.boy.face_dir = 1
-        elif left_down(e) or right_up (e):
+        elif self.boy.face_dir == -1:
             self.boy.dir = self.boy.face_dir = -1
-
+        self.boy.autorun_start_time = get_time()
 
     def exit(self,e):
         pass
@@ -39,6 +39,10 @@ class AutoRun:
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
         self.boy.x += self.boy.dir * 5
+
+
+        if get_time() - self.boy.autorun_start_time > 5.0:
+            self.boy.state_machine.handle_state_event(('TIMEOUT', None))
 
     def draw(self):
         if self.boy.face_dir == 1: # right
